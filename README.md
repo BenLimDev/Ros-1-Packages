@@ -7,7 +7,7 @@ Collection of ROS1 packages for robotics projects.
 - Catkin workspace
 
 ## Usage
-
+```
 # Clone the repository
 git clone https://github.com/BenLimDev/Ros-1-Packages.git
 
@@ -21,6 +21,7 @@ catkin_make
 
 # Source
 source devel/setup.bash
+```
 
 ## Packages
 
