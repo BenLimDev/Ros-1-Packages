@@ -8,20 +8,19 @@ Collection of ROS1 packages for robotics projects.
 
 ## Usage
 
-```bash
-# Clone directly to a temp location
-git clone https://github.com/BenLimDev/Ros-1-Packages.git /tmp/ros-packages
+# Clone the repository
+git clone https://github.com/BenLimDev/Ros-1-Packages.git
 
 # Copy the package you need to your catkin workspace
 cd ~/catkin_ws/src
-cp -r /tmp/ros-packages/nav ./
+cp -r /path/to/Ros-1-Packages/nav ./
 
-# Clean up and build
-rm -rf /tmp/ros-packages
+# Build
 cd ~/catkin_ws
 catkin_make
+
+# Source
 source devel/setup.bash
-```
 
 ## Packages
 
