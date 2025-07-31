@@ -33,11 +33,11 @@ source devel/setup.bash
 roslaunch nav navigation.launch
 ```
 
-For adding other packages:
-# Copy another package from your catkin_ws
+# For adding other packages:
+- Copy another package from your catkin_ws
 cp -r ~/catkin_ws/src/another_package ./another_package
 
-# Add, commit, and push
+- Add, commit, and push
 git add another_package/
 git commit -m "Add another_package"
 git push
