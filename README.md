@@ -64,7 +64,8 @@ class MyRobotController:
             if self.stop_detector.just_stopped():
                 rospy.loginfo("Robot just stopped moving!")
             
-            self.rate.sleep()```
+            self.rate.sleep()
+```
 
 
 
