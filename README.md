@@ -13,7 +13,7 @@ cd ~/catkin_ws/src
 git clone https://github.com/BenLimDev/Ros-1-Packages.git
 
 # Copy the package you need to your catkin workspace
-cp -r /catkin_ws/src/Ros-1-Packages/nav ./
+cp -r /catkin_ws/src/Ros-1-Packages/package_name ./
 
 # Build
 cd ~/catkin_ws
