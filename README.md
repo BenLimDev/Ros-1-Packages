@@ -74,8 +74,9 @@ class MyRobotController:
 ```
 cp -r ~/catkin_ws/src/another_package ./another_package
 ```
-- Add, commit, and push
+- Pull, Add, commit, and push
 ```
+git pull
 git add another_package/
 git commit -m "Add another_package"
 git push
