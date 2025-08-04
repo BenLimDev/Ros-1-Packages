@@ -67,9 +67,15 @@ def choose_unique_categories(data):
     # Phase 3: Camera fallback
     assign_unique(people, used_categories, "Camera_characteristics", assignment)
 
+    # Append Gemini_location if available
+    for name, details in data.items():
+        location = details.get("Gemini_location")
+        if location:
+            assignment[name] += f", {location}"
+            
     # Phase 4: Fallback for unassigned
     for name, _ in people:
         if name not in assignment:
             assignment[name] = f"{name} has no unique category available"
-
+        
     return assignment
