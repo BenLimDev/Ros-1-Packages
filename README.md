@@ -1,6 +1,6 @@
 # ROS1 Packages
 
-Collection of ROS1 packages for robotics projects.
+Collection of ROS1 packages for AIROST.
 
 ## Prerequisites
 - ROS1 (Melodic/Noetic)
@@ -9,11 +9,12 @@ Collection of ROS1 packages for robotics projects.
 ## Usage
 ```
 # Clone the repository
-cd ~/catkin_ws/src
+cd
 git clone https://github.com/BenLimDev/Ros-1-Packages.git
 
 # Copy the package you need to your catkin workspace
-cp -r /catkin_ws/src/Ros-1-Packages/package_name ./
+cd ~/catkin_ws/src
+cp -r Ros-1-Packages/package_name ./
 
 # Build
 cd ~/catkin_ws
@@ -72,11 +73,12 @@ class MyRobotController:
 # For adding other packages:
 - Copy another package from your catkin_ws
 ```
+cd Ros-1-Packages
+git pull
 cp -r ~/catkin_ws/src/another_package ./another_package
 ```
 - Pull, Add, commit, and push
 ```
-git pull
 git add another_package/
 git commit -m "Add another_package"
 git push
