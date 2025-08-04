@@ -22,13 +22,13 @@ def format_sentence(name, category, value):
     value = value.replace("_", " ").capitalize()
 
     if category == "gender" or category == "glasses":
-        return f" is {value}"
+        return f"{name} is {value}"
     elif category == "shirt_color":
-        return f" has {value} shirt"
+        return f"{name} has {value} shirt"
     elif category == "face_shape":
-        return f" has {value} face shape"
+        return f"{name} has {value} face shape"
     elif category == "skin_tone":
-        return f" has {value} skin tone"
+        return f"{name} has {value} skin tone"
     else:
         # Default fallback for unknown categories
         return f" has {value}"

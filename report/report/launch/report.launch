@@ -1,5 +1,0 @@
-<launch>
-    <node pkg="report" type="report.py" name="report_node" output="screen">
-        <param name="json_file" value="$(find report)/customers_database.json" />
-    </node>
-</launch>
