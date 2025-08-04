@@ -228,6 +228,7 @@ class SimplifiedCustomerRecognition:
         
         comparison_result = {}
         data_confidence = "low"
+        location_info = "Unavailable" 
         
         if self.gemini_received:
             gemini_chars = self.extract_characteristics(self.gemini_description, "gemini")
