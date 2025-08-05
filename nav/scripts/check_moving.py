@@ -7,7 +7,6 @@ from nav_msgs.msg import Odometry
 
 class RobotStopDetector:
     def __init__(self):
-        # Remove rospy.init_node() from here - it should be initialized by the main node
         # TF setup
         self.tf_buffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer)

@@ -1,0 +1,20 @@
+map_lines:
+  - name: "Pantry area"
+    points: [[132, 157], [146, 157]]
+    color: [1.0, 0.0, 0.0]    # Red
+  - name: "Desk"
+    points: [[245, 124], [266, 127]]
+    color: [0.0, 1.0, 0.0]    # Green
+  - name: "Desk with water bottles"
+    points: [[178, 101], [193, 103]]
+    color: [0.0, 0.0, 1.0]    # Blue
+  - name: "Conveyor belt area"
+    points: [[193, 103], [245, 124]]
+    color: [1.0, 1.0, 0.0]    # Yellow
+  - name: "Smart locked door"
+    points: [[144, 202], [173, 205]]
+    color: [1.0, 0.0, 1.0]    # Magenta
+  - name: "Hallway"
+    points: [[281, 152], [275, 216]]
+    color: [0.0, 1.0, 1.0]    # Cyan
+  # Add more lines as needed...
