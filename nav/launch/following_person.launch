@@ -1,0 +1,7 @@
+<launch>
+    <!-- Launch Kobuki minimal -->
+    <include file="$(find kobuki_node)/launch/minimal.launch" />
+
+    <!-- Run skeleton_pose.py node -->
+    <node pkg="nav" type="skeleton_pose.py" name="skeleton_pose" output="screen" launch-prefix="python3" />
+</launch>

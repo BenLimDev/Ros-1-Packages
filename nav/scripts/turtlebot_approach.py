@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# turtlebot_approach.py
 
 import rospy
 from std_msgs.msg import Bool, Float32
@@ -12,8 +11,8 @@ class TurtleBotApproach:
         rospy.Subscriber('/person_distance', Float32, self.distance_callback)
         rospy.Subscriber('/person_angle', Float32, self.angle_callback)
 
-        self.target_distance = 0.5  # meters
-        self.target_angle = 1.571   # radians
+        self.target_distance = 0.7  # meters
+        self.target_angle = 0   # radians
 
         self.cmd_vel = Twist()
         self.distance_to_person = None
@@ -40,33 +39,33 @@ class TurtleBotApproach:
         # ===== MODIFIED: Stop linear.x when in range, BUT allow angular.z turning =====
         if abs(error_dist) <= 0.1:
             self.cmd_vel.linear.x = 0
-            if error_ang > 1.2 and self.angle_to_person != 0:
-                self.cmd_vel.angular.z = -1.5     # turn right
+            if error_ang > 0.7 and self.angle_to_person != 0:
+                self.cmd_vel.angular.z = -1.7     # turn right
                 print(f"\nangle = {error_ang}turning Right most")
 
-            elif error_ang > 0.9 and self.angle_to_person != 0:
-                self.cmd_vel.angular.z = -1.0     # turn right more     
+            elif error_ang > 0.5 and self.angle_to_person != 0:
+                self.cmd_vel.angular.z = -1.2     # turn right more    
                 print(f"\nangle = {error_ang}turning Right more")
 
             elif error_ang > 0.2 and self.angle_to_person != 0:
                 self.cmd_vel.angular.z = -0.7     # turn right most   
                 print(f"\nangle = {error_ang}turning Right")
 
-            elif error_ang < -3.4 and self.angle_to_person != 0:
-                self.cmd_vel.angular.z = 1.5      # turn left
+            elif error_ang < -0.7 and self.angle_to_person != 0:
+                self.cmd_vel.angular.z = 1.7      # turn left
                 print(f"\nangle = {error_ang}turning Left most")
              
-            elif error_ang < -2.9 and self.angle_to_person != 0:
-                self.cmd_vel.angular.z = 1.0     # turn left more
+            elif error_ang < -0.5 and self.angle_to_person != 0:
+                self.cmd_vel.angular.z = 1.2     # turn left more
                 print(f"\nangle = {error_ang}turning Left more")
               
-            elif error_ang < -2.5 and self.angle_to_person != 0:
+            elif error_ang < -0.2 and self.angle_to_person != 0:
                 self.cmd_vel.angular.z = 0.7      # turn left most      
                 print(f"\nangle = {error_ang}turning Left")
               
             else:
                 self.cmd_vel.angular.z = 0
-                print(f"\nangle = {error_ang} not rospy.Rate(30).sleep(30) turning")
+                print(f"\nangle = {error_ang} not turning")
                
 
             if not self.has_reached_distance:
@@ -84,9 +83,13 @@ class TurtleBotApproach:
                 self.reach_distance_pub.publish(False)
 
         # ==== Variable linear velocity ====
-        if self.distance_to_person > self.target_distance+0.9:
+        if self.distance_to_person > self.target_distance+1.5:
+            self.cmd_vel.linear.x = 2.0
+        elif self.distance_to_person > self.target_distance+1.3:
+            self.cmd_vel.linear.x = 1.5
+        elif self.distance_to_person > self.target_distance+1.1:
             self.cmd_vel.linear.x = 1.0
-        elif self.distance_to_person > self.target_distance+0.8:
+        elif self.distance_to_person > self.target_distance+0.9:
             self.cmd_vel.linear.x = 0.8
         elif self.distance_to_person > self.target_distance+0.7:
             self.cmd_vel.linear.x = 0.6
@@ -100,31 +103,33 @@ class TurtleBotApproach:
             self.cmd_vel.linear.x = 0
 
         # ==== Angular velocity ====
-        if error_ang > 0.9 and self.angle_to_person != 0:
-            self.cmd_vel.angular.z = -1.4     # turn right
+        if error_ang > 0.8 and self.angle_to_person != 0:
+            self.cmd_vel.angular.z = -1.7     # turn right
             print(f"\nangle = {error_ang}turning Right most")
+
         elif error_ang > 0.6 and self.angle_to_person != 0:
-            self.cmd_vel.angular.z = -1.2     # turn right more     
+            self.cmd_vel.angular.z = -1.2     # turn right more    
             print(f"\nangle = {error_ang}turning Right more")
+
         elif error_ang > 0.2 and self.angle_to_person != 0:
             self.cmd_vel.angular.z = -0.7     # turn right most   
             print(f"\nangle = {error_ang}turning Right")
 
-        elif error_ang < -2.7 and self.angle_to_person != 0:
-            self.cmd_vel.angular.z = 1.4     # turn left
+        elif error_ang < -0.8 and self.angle_to_person != 0:
+            self.cmd_vel.angular.z = 1.7      # turn left
             print(f"\nangle = {error_ang}turning Left most")
             
-        elif error_ang < -2.48 and self.angle_to_person != 0:
+        elif error_ang < -0.6 and self.angle_to_person != 0:
             self.cmd_vel.angular.z = 1.2     # turn left more
             print(f"\nangle = {error_ang}turning Left more")
             
-        elif error_ang < -2.3 and self.angle_to_person != 0:
+        elif error_ang < -0.2 and self.angle_to_person != 0:
             self.cmd_vel.angular.z = 0.7      # turn left most      
             print(f"\nangle = {error_ang}turning Left")
+            
         else:
             self.cmd_vel.angular.z = 0
-            print("\nstop turning\n")
-            print(f"\nangle = {error_ang},stop turning")
+            print(f"\nangle = {error_ang} not turning")
 
         #rospy.loginfo(f'VELOCITY - Linear: {self.cmd_vel.linear.x:.2f}, Angular: {self.cmd_vel.angular.z:.2f}')
         self.vel_pub.publish(self.cmd_vel)
