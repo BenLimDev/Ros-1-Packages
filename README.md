@@ -23,50 +23,66 @@ catkin_make
 source devel/setup.bash
 ```
 
-## Packages
-
-- **nav**: Navigation package
-
 ## Run
 
 ```bash
 roslaunch nav navigation.launch
 ```
-# check_moving.py
-## Provides two detection methods:
-    - check_stopped(): Returns current stopped state, continously
-    - just_stopped(): Returns True only on transition from moving to stopped, only once
-### As a Library in Your Code:
-```#!/usr/bin/env python
-import rospy
-from your_package.robot_stop_detector import RobotStopDetector
+# How to navigate to waypoint (goto_waypoint.py)
+- Must run with navigation.launch
+- Using with python:
+```
+from path_to/navigate_waypoints import WaypointNavigator  
 
-class MyRobotController:
-    def __init__(self):
-        rospy.init_node('my_robot_controller')
-        
-        # Initialize the stop detector
-        self.stop_detector = RobotStopDetector()
-        
-        # You can modify the thresholds like this:
-        self.stop_detector.position_threshold = 0.02  # meters (default: 0.01)
-        self.stop_detector.orientation_threshold = 0.1  # radians (default: 0.05)
-        self.stop_detector.time_threshold = rospy.Duration(3)  # seconds (default: 2)
-        self.rate = rospy.Rate(10)  # 10Hz
-        
-    def run(self):
-        while not rospy.is_shutdown():
-            # Example 1: Check current stopped state
-            if self.stop_detector.check_stopped():
-                rospy.loginfo("Robot is currently stopped")
-            
-            # Example 2: Detect the moment when robot stops
-            if self.stop_detector.just_stopped():
-                rospy.loginfo("Robot just stopped moving!")
-            
-            self.rate.sleep()
+if __name__ == "__main__":
+    rospy.init_node("controller")# How to use spin and stop/allign at the first person spin.py
+
+Using with python:
+
+```from std_msgs.msg import String
+
+
+pub = rospy.Publisher("/rotator/control", String, queue_size=1)
+
+rospy.sleep(0.2)
+
+pub.publish("start")     # or "continue" / "stop"
+
+print("sent: start")
+
+rospy.sleep(0.5)```
+
+
+Use rostopic publish:
+
+```rostopic pub /rotator/control std_msgs/String "start" #or "continue" / "stop"``` 
+    nav = WaypointNavigator()          
+    nav.go_to_waypoint("living")      
+    rospy.loginfo("Done")
 ```
 
+- Use rostopic publish:
+```
+rostopic pub /go_to_waypoint std_msgs/String "data: 'living'"
+```
+
+# How to use spin and stop/allign at the first person spin.py
+- Continue will skip the current person by ignoring any person from the current angle and look for the next person
+- Using with python:
+```
+from std_msgs.msg import String
+
+pub = rospy.Publisher("/rotator/control", String, queue_size=1)
+rospy.sleep(0.2)
+pub.publish("start")     # or "continue" / "stop"
+print("sent: start")
+rospy.sleep(0.5)
+```
+
+- Use rostopic publish:
+```
+rostopic pub /rotator/control std_msgs/String "start" #or "continue" / "stop"
+``` 
 
 
 # For adding other packages:
