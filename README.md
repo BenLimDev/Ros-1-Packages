@@ -3,10 +3,11 @@
 Collection of ROS1 packages for AIROST.
 
 ## Prerequisites
-- ROS1 (Melodic/Noetic)
+- ROS1 (Noetic)
 - Catkin workspace
 
-## Usage
+## SETUP
+- DONT CLONE INSIDE src or else you'll get duplicates
 ```
 # Clone the repository
 cd
