@@ -1,42 +1,30 @@
-shutdown_costmaps: false
+# Frequencies
+controller_frequency: 10.0
+planner_frequency: 1.0
 
-controller_frequency: 5.0
-controller_patience: 8.0
-
-planner_frequency: 5.0
-planner_patience: 8.0
-tolerance: 0.5  # Increase tolerance to avoid frequent aborts
-
+# Patience and oscillation
+planner_patience: 3.0
+controller_patience: 2.0
 oscillation_timeout: 5.0
-oscillation_distance: 0.1
+oscillation_distance: 0.25
 
-# local planner - default is trajectory rollout
+# Recoveries: disable in-place spin clears for narrow corridors
+recovery_behavior_enabled: true
+clearing_rotation_allowed: true
+conservative_reset_dist: 0.50
+
+# Use DWA
 base_local_planner: "dwa_local_planner/DWAPlannerROS"
 
-base_global_planner: "navfn/NavfnROS" #alternatives: global_planner/GlobalPlanner, carrot_planner/CarrotPlanner
+# Global planner (either NavfnROS or GlobalPlanner; pick one)
+#navfn/NavfnROS:
+#  allow_unknown: false
 
-# Recovery behaviors
-recovery_behavior_enabled: true
-
-recovery_behaviors:
-  - name: 'super_conservative_reset1' #clear large area around
-    type: 'clear_costmap_recovery/ClearCostmapRecovery' #clear specific layers in the robot's costmap
-  - name: 'conservative_reset1' #clear a small area
-    type: 'clear_costmap_recovery/ClearCostmapRecovery'
-  - name: 'aggressive_reset1' #clear obstacles only  directly around the robot (0.0 meters)
-    type: 'clear_costmap_recovery/ClearCostmapRecovery'
-  - name: 'clearing_rotation1'
-    type: 'rotate_recovery/RotateRecovery' #rotate in place
-
-super_conservative_reset1:
-  reset_distance: 1.0
-  layer_names : ["obstacle_layer","inflation_layer"]
-
-conservative_reset1:
-  reset_distance: 0.5
-  layer_names : ["obstacle_layer","inflation_layer"]
-
-aggressive_reset1:
-  reset_distance: 0.0
-  layer_names : ["obstacle_layer","inflation_layer"]
-
+GlobalPlanner:
+  use_dijkstra: true
+  use_quadratic: true
+  allow_unknown: false
+  cost_factor: 3.0
+  neutral_cost: 50
+  lethal_cost: 253
+  use_grid_path: false

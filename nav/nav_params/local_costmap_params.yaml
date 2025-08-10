@@ -1,33 +1,20 @@
 local_costmap:
   global_frame: odom
-  robot_base_frame: base_link          # or base_footprint — just be consistent everywhere
+  robot_base_frame: base_footprint
   update_frequency: 10.0
   publish_frequency: 10.0
+  transform_tolerance: 0.4
   static_map: false
   rolling_window: true
-  width: 3.0                           # give DWA room to see ahead
+  width: 3.0
   height: 3.0
-  resolution: 0.05                     # match the global map
-  transform_tolerance: 0.25
-  allow_unknown: false                 # local map shouldn’t be blocked by unknown
-
-  # Sensor ranges (overrides common if you keep a common include)
-  obstacle_range: 2.5
-  raytrace_range: 3.0
+  resolution: 0.025
 
   plugins:
     - {name: obstacle_layer,  type: "costmap_2d::ObstacleLayer"}
     - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
 
-  obstacle_layer:
-    observation_sources: scan
-    scan:
-      data_type: LaserScan
-      topic: /scan
-      marking: true
-      clearing: true
-      inf_is_valid: true
-
-  inflation_layer:
-    inflation_radius: 0.45             # real buffer so global plan stays off walls
-    cost_scaling_factor: 9.0           # faster cost dropoff → feasible narrow paths
+inflation_layer:
+  # Key tuning knob for narrow passages:
+  inflation_radius: 0.18            # keep <= (clearance/2); fits 70 cm corridors
+  cost_scaling_factor: 4.0 
