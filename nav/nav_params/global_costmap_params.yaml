@@ -10,10 +10,9 @@ global_costmap:
 
   plugins:
     - {name: static_layer,   type: "costmap_2d::StaticLayer"}
-    - {name: obstacle_layer, type: "costmap_2d::ObstacleLayer"}
     - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
 
-inflation_layer:
-  # Key tuning knob for narrow passages:
-  inflation_radius: 0.20            # keep <= (clearance/2); fits 70 cm corridors
-  cost_scaling_factor: 3.0 
+  inflation_layer:
+    # Key tuning knob for narrow passages:
+    inflation_radius: 0.5            # keep <= (clearance/2); fits 70 cm corridors
+    cost_scaling_factor: 4.2

@@ -73,6 +73,8 @@
   <exec_depend>rospy</exec_depend>
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>visualization_msgs</exec_depend>
+  <depend>costmap_2d</depend>
+  <depend>nav_core</depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
